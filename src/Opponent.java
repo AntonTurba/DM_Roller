@@ -1,8 +1,8 @@
-
+import java.util.List;
 
 public class Opponent {
 	
-	private String name;
+	private String enemyName;
 	
 	private String size;
 	
@@ -10,19 +10,17 @@ public class Opponent {
 	
 	private int healthPoints;
 	
-	private Attack attackOne;
+	private List<Attack> attacks;
 	
-	private Attack attackTwo;
-	
-	public Opponent(String name, String size, int ac, int hp, Attack one) {
-		this.name = name;
+	public Opponent(String name, String size, int ac, int hp, List<Attack> attacks) {
+		this.enemyName = name;
 		this.size = size;
 		this.armorClass = ac;
 		this.healthPoints = hp;
-		this.attackOne = 
+		this.attacks = attacks;
 	}
-	
-	public Opponent(String name, String size, int ac, int hp, Attack one, Attack two) {
-		
+
+	public String getEnemyName() {
+		return enemyName;
 	}
 }

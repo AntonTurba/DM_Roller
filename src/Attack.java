@@ -1,7 +1,7 @@
 
 public class Attack {
 	
-	private String name;
+	private String attackName;
 	
 	private int numOfDice;
 	
@@ -10,7 +10,7 @@ public class Attack {
 	private int diceModifier;
 	
 	public Attack(String name, int numOfDice, int typeOfDice, int diceModifier) {
-		this.name = name;
+		this.attackName = name;
 		this.numOfDice = numOfDice;
 		this.typeOfDice = typeOfDice;
 		this.diceModifier = diceModifier;
