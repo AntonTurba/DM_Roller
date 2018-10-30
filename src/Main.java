@@ -19,7 +19,7 @@ public class Main {
 		
 		while (!validProfile) {
 			print("1: Create new DM profile");
-			print("2: Load existing DM profile");
+			print("2: Load DM profile");
 			print("3: Exit");
 			
 			String userInput = scanner.nextLine();
@@ -48,7 +48,7 @@ public class Main {
 					break;
 			}
 		}
-		
+		// TODO
 		// SQL to find DM data 
 	}
 	
@@ -56,6 +56,7 @@ public class Main {
 		print("1: Opponent");
 		print("2: Encounter");
 		print("3: Campaign");
+		print("4: Start fight");
 		print("4: Log out");
 		
 		boolean validSelection = false;
@@ -74,6 +75,9 @@ public class Main {
 					showCampaignOptions();
 					break;
 				case "4":
+					startGame();
+					break;
+				case "5":
 					dm = null;
 					userSelectDm();
 					break;
@@ -84,30 +88,149 @@ public class Main {
 		}
 	}
 	
+	private static void startGame() {
+		print("1: Select encounter");
+		print("2: Select campaign");
+		print("3: Go back");
+	}
+	
 	private static void showOpponentOptions() {
 		print("1: Create new opponent");
-		print("2: Modify existing opponent");
-		print("3: Delete existing opponent");
+		print("2: Modify opponent");
+		print("3: Delete opponent");
 		print("4: Go back");
+		
+		boolean validSelection = false;
+		
+		while (!validSelection) {
+			String userInput = scanner.nextLine();
+			
+			switch (userInput) {
+				case "1":
+					createNewOpponent();
+					break;
+				case "2":
+					modifyOpponent();
+					break;
+				case "3":
+					deleteOpponent();
+					break;
+				case "4":
+					showGeneralOptions();
+					break;
+				default:
+					print("Input not recognized, please try again");
+					break;
+			}
+		}
+	}
+	
+	private static void createNewOpponent() {
+		// Throw exception if create doesn't work
+	}
+	
+	private static void modifyOpponent() {
+		print("1: Search opponents");
+		print("2: Show all opponents");
+		
+		
+	}
+	
+	private static void deleteOpponent() {
+		print("1: Search opponents");
+		print("2: Show all opponents");
 	}
 	
 	private static void showEncounterOptions() {
 		print("1: Create new encounter");
-		print("2: Modify existing encounter");
-		print("3: Delete existing encounter");
+		print("2: Modify encounter");
+		print("3: Delete encounter");
 		print("4: Go back");
+		
+		boolean validSelection = false;
+		
+		while (!validSelection) {
+			String userInput = scanner.nextLine();
+			
+			switch (userInput) {
+				case "1":
+					createNewEncounter();
+					break;
+				case "2":
+					modifyEncounter();
+					break;
+				case "3":
+					deleteEncounter();
+					break;
+				case "4":
+					showGeneralOptions();
+					break;
+				default:
+					print("Input not recognized, please try again");
+					break;
+			}
+		}
+	}
+	
+	private static void createNewEncounter() {
+		// Throw exception if create doesn't work
+	}
+	
+	private static void modifyEncounter() {
+		
+	}
+	
+	private static void deleteEncounter() {
+		
 	}
 	
 	private static void showCampaignOptions() {
 		print("1: Create new campaign");
-		print("2: Modify existing campaign");
-		print("3: Delete existing campaign");
+		print("2: Modify campaign");
+		print("3: Delete campaign");
 		print("4: Go back");
+		
+		boolean validSelection = false;
+		
+		while (!validSelection) {
+			String userInput = scanner.nextLine();
+			
+			switch (userInput) {
+				case "1":
+					createNewCamp();
+					break;
+				case "2":
+					modifyCamp();
+					break;
+				case "3":
+					deleteCamp();
+					break;
+				case "4":
+					showGeneralOptions();
+					break;
+				default:
+					print("Input not recognized, please try again");
+					break;
+			}
+		}
+	}
+	
+	private static void createNewCamp() {
+		// Throw exception if create doesn't work
+	}
+	
+	private static void modifyCamp() {
+		
+	}
+	
+	private static void deleteCamp() {
+		
 	}
 	
 	private static void print(String input) {
 		System.out.println(input);
 	}
+	
 	
 	private static void outputDmNames(ArrayList<String> names) {
 		if (names.size() > 0) {
@@ -133,30 +256,6 @@ public class Main {
 	
 	private static DM loadDm(String dmName) {
 		
-		return null;
-	}
-	
-	private boolean createNewCampaign(String userInput) {
-		return true;
-	}
-	
-	private Campaign loadCampaign(String campName) {
-		return null;
-	}
-	
-	private boolean createNewEncounter(String userInput) {
-		return true;
-	}
-
-	private Encounter loadEncounter(String encName) {
-		return null;
-	}
-	
-	private boolean createNewOpponent(String userInput) {
-		return true;
-	}
-	
-	private Opponent loadOpponent(String oppName) {
 		return null;
 	}
 	
