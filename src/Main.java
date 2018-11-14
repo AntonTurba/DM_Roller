@@ -1,3 +1,4 @@
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,10 +7,25 @@ public class Main {
 
 	private static Scanner scanner = new Scanner(System.in);
 	private static DM dm;
+	private static Connection dbConn = null;
+	private static PreparedStatement pst;
+	private static ResultSet rs;
+
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		String dbPath = "jdbc:sqlite:DM_Helper_DB.db";
 
+		try {
+			
+			Class.forName("org.sqlite.JDBC");
+			dbConn = DriverManager.getConnection(dbPath);
+			
+		} catch (ClassNotFoundException ex) {
+			System.out.println(ex);
+		} catch (SQLException ex) {
+			System.out.println(ex);
+		}
 		print("Welcome, please load or create new DM profile");
 		userSelectDm();
 	}
@@ -50,6 +66,57 @@ public class Main {
 		}
 		// TODO
 		// SQL to find DM data 
+	}
+	
+	private static void outputDmNames(ArrayList<String> names) {
+		if (names.size() > 0) {
+			for (String s : names) {
+				print(s);
+			}
+		} else {
+			// throw exception here
+		}
+	}
+	
+	private static ArrayList<String> loadDmNames() {
+		ArrayList<String> dmNames = new ArrayList<String>();
+		// Append a number to each entry
+		
+		try {
+			
+			pst = dbConn.prepareStatement("select * from DM");
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				do {
+					dmNames.add(rs.getInt("DM_ID") + ":" + rs.getString("DMName"));
+				} while (rs.next());
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return dmNames;
+	}
+	
+	private static boolean createNewDM(String userInput) {
+		print("Enter the name of the new DM");
+		String name = scanner.nextLine().trim();
+		try {
+			pst = dbConn.prepareStatement("insert into DM values ('"+name+"')");
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private static DM loadDm(String dmName) {
+		
+		return null;
 	}
 	
 	private static void showGeneralOptions() {
@@ -229,34 +296,6 @@ public class Main {
 	
 	private static void print(String input) {
 		System.out.println(input);
-	}
-	
-	
-	private static void outputDmNames(ArrayList<String> names) {
-		if (names.size() > 0) {
-			for (String s : names) {
-				print(s);
-			}
-		} else {
-			// throw exception here
-		}
-	}
-	
-	private static ArrayList<String> loadDmNames() {
-		ArrayList<String> dmNames = new ArrayList<String>();
-		// Append a number to each entry
-		
-		return dmNames;
-	}
-	
-	private static boolean createNewDM(String userInput) {
-		// Throw exception if create doesn't work
-		return true;
-	}
-	
-	private static DM loadDm(String dmName) {
-		
-		return null;
 	}
 	
 	private static void closeProgram() {
