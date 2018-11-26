@@ -3,13 +3,15 @@ import java.util.List;
 
 public class Encounter {
 	
+	private int encounterId;
+	
 	private String encounterName;
 	
 	private List<Opponent> adversaries;
 		
-	public Encounter(String name, List<Opponent> adversaries) {
+	public Encounter(int id, String name) {
 		this.setEncounterName(name);
-		this.adversaries = adversaries;
+		this.encounterId = id;
 	}
 	
 	// Every time a new opponent is added, the sort method is called
@@ -20,7 +22,7 @@ public class Encounter {
 	}
 	
 	public void sortOpponents() {
-		adversaries.sort(Comparator.comparing(Opponent::getEnemyName));
+		adversaries.sort(Comparator.comparing(Opponent::getName));
 	}
 
 	public String getEncounterName() {
