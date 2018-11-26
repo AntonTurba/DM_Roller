@@ -3,13 +3,15 @@ import java.util.List;
 
 public class Campaign {
 	
+	private int campId;
+	
 	private String campaignName;
 
 	private List<Encounter> campaignEncounters;
 	
-	public Campaign(String name, List<Encounter> encounters) {
+	public Campaign(int id, String name) {
+		this.setCampId(id);
 		setCampaignName(name);
-		this.campaignEncounters = encounters;
 	}
 
 	public String getCampaignName() {
@@ -21,12 +23,28 @@ public class Campaign {
 	}
 	
 	public void addEncounter(Encounter e) {
-		this.campaignEncounters.add(e);
+		this.getCampaignEncounters().add(e);
 		
 		sortEncounters();
 	}
 	
 	public void sortEncounters() {
-		campaignEncounters.sort(Comparator.comparing(Encounter::getEncounterName));
+		getCampaignEncounters().sort(Comparator.comparing(Encounter::getEncounterName));
+	}
+
+	public int getCampId() {
+		return campId;
+	}
+
+	public void setCampId(int campId) {
+		this.campId = campId;
+	}
+
+	public List<Encounter> getCampaignEncounters() {
+		return campaignEncounters;
+	}
+
+	public void setCampaignEncounters(List<Encounter> campaignEncounters) {
+		this.campaignEncounters = campaignEncounters;
 	}
 }
