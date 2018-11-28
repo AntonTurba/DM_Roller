@@ -13,18 +13,19 @@ public class Main {
 	private static Connection dbConn = null;
 	private static PreparedStatement pst;
 	private static ResultSet rs;
-	String dbPath = "jdbc:sqlite:DM_Helper_DB.db";
+	static String dbPath = "jdbc:sqlite:DM_Helper_DB.db";
 	static String dbPath2 = "jdbc:sqlite:D:/School/Fall 2018/Java 4/Final/DM_Roller-master/DM_Roller-master/resources/DM_Helper_DB.db";
+	static String dbPath3 = "jdbc:sqlite:C:/Users/23991820/Downloads/DM_Roller-master/DM_Roller-master/resources/DM_Helper_DB.db";
 
 	
 	public static void main(String[] args) {
 		
-		
-
+		// Tests if the JDBC driver is setup correctly
+		// If it is, then the database is initialized
 		try {
 			
 			Class.forName("org.sqlite.JDBC");
-			dbConn = DriverManager.getConnection(dbPath2);
+			dbConn = DriverManager.getConnection(dbPath3);
 			
 		} catch (ClassNotFoundException ex) {
 			System.out.println(ex);
@@ -35,6 +36,7 @@ public class Main {
 		userSelectDm();
 	}
 	
+	// Allows the user to select the DM profile they want to load
 	private static void userSelectDm() {
 		boolean validProfile = false;
 		
@@ -46,6 +48,7 @@ public class Main {
 			String userInput = getStringInput();
 			
 			switch (userInput) {
+				// Sends the user to a method for creating a new DM then calls the load DM method
 				case "1":
 					if (createNewDM(userInput)) {
 						getDms();
@@ -56,6 +59,7 @@ public class Main {
 					break;
 					
 				case "2":
+					// Goes directly to the load DM method
 					getDms();
 					validProfile = true;
 					break;
@@ -72,9 +76,9 @@ public class Main {
 	}
 	
 
-	
+	// Grabs a list of dm names and ids and iterates through it for the user to select one.
 	private static void getDms() {
-		ArrayList<String> dmNames = new ArrayList<String>();
+
 		HashMap<Integer, String> dmData = new HashMap<>();
 		boolean isValid = false;
 		int input = 0;
@@ -87,7 +91,6 @@ public class Main {
 			
 			if (rs.next()) {
 				do {
-					//dmNames.add(rs.getInt("DM_ID") + ":" + rs.getString("DMName"));
 					dmData.put(rs.getInt("DM_ID"), rs.getString("DMName"));
 					print(rs.getInt("DM_ID") + ":" + rs.getString("DMName"));
 					
@@ -117,6 +120,7 @@ public class Main {
 		loadDm(input);
 	}
 	
+	// Creates new DM based on user input
 	private static boolean createNewDM(String userInput) {
 		print("Enter the name of the new DM");
 		String name = getStringInput();
@@ -131,6 +135,7 @@ public class Main {
 		}
 	}
 	
+	// Starts the process of building the DM object and it's sub objects
 	private static void loadDm(Integer dmId) {
 		
 		try {
@@ -160,13 +165,13 @@ public class Main {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		showGeneralOptions();
 	}
 	
-
+	// Gets all of the encounters associated with a DM
 	private static List<Encounter> getEncounters(int campId) {
 		ResultSet rsEnc;
 		List<Encounter> encounters = new ArrayList<Encounter>();
@@ -623,7 +628,7 @@ public class Main {
 				} while (rs.next());
 			}
 			
-			scanner.nextLine();
+			//scanner.nextLine();
 			
 			print("Input the number of the encounter you want to modify");
 			int input = getIntInput();
@@ -867,11 +872,13 @@ public class Main {
 			} catch (InputMismatchException e) {
 				print("Input not valid, try again");
 				isValid = false;
+				scanner.nextLine();
 			}
 		}
 		return false;
 	}
 	
+	// So I don't have to do the long a** command every time
 	private static void print(String input) {
 		System.out.println(input);
 	}
